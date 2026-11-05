@@ -15,8 +15,8 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="nav-shell">
-      <a class="brand" href="#top" aria-label="Maicol's English learning blog home"><span class="brand-mark">M</span><span>MAICOL <span class="brand-muted">/ MY ENGLISH BLOG</span></span></a>
-      <nav aria-label="Main navigation"><a href="#evidence">My work</a><a href="#grammar">Grammar notes</a><a class="nav-cta" href="#about">About me <span aria-hidden="true">↗</span></a></nav>
+      <a class="brand" href="#top" aria-label="Maicol's English learning blog home"><img class="brand-avatar" src="assets/maicol-anime-avatar.png" alt=""><span>MAICOL <span class="brand-muted">/ MY ENGLISH BLOG</span></span></a>
+      <nav aria-label="Main navigation"><a href="#evidence">My work</a><a href="#grammar">Grammar notes</a><a class="nav-cta" href="#about">About me <span aria-hidden="true">↗</span></a><button class="theme-toggle" type="button" aria-label="Switch to dark mode" aria-pressed="false" title="Switch color theme"><span class="theme-symbol" aria-hidden="true">☾</span><span class="theme-name">Dark</span></button></nav>
     </div>
   </header>
   <main id="main">
@@ -57,6 +57,34 @@
 
     <section class="closing section-shell"><p class="eyebrow eyebrow-dark">STILL LEARNING</p><h2>Thanks for stopping<br><span>by!</span></h2><p>I am still learning, and I am happy you stopped by to see my work.</p><a class="button button-dark" href="#top">Back to the beginning <span aria-hidden="true">↑</span></a><span class="closing-doodle" aria-hidden="true">✳</span></section>
   </main>
-  <footer class="site-footer"><div class="section-shell footer-inner"><a class="brand footer-brand" href="#top"><span class="brand-mark">M</span><span>MAICOL <span class="brand-muted">/ MY ENGLISH BLOG</span></span></a><p>Maicol Stiven Vidal Ospina <span>·</span> ANÁLISIS Y DESARROLLO DE SOFTWARE · Ficha 3607744 <span>·</span> SENA</p><p class="footer-code">BLOG GA4-240202501-AA1-EV03</p></div></footer>
+  <footer class="site-footer"><div class="section-shell footer-inner"><a class="brand footer-brand" href="#top"><img class="brand-avatar" src="assets/maicol-anime-avatar.png" alt=""><span>MAICOL <span class="brand-muted">/ MY ENGLISH BLOG</span></span></a><p>Maicol Stiven Vidal Ospina <span>·</span> ANÁLISIS Y DESARROLLO DE SOFTWARE · Ficha 3607744 <span>·</span> SENA</p><p class="footer-code">BLOG GA4-240202501-AA1-EV03</p></div></footer>
+  <script>
+    (() => {
+      const root = document.documentElement;
+      const button = document.querySelector(".theme-toggle");
+      const symbol = button.querySelector(".theme-symbol");
+      const label = button.querySelector(".theme-name");
+      const themeColor = document.querySelector('meta[name="theme-color"]');
+      const saved = localStorage.getItem("blog-theme");
+      let theme = saved || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
+      const applyTheme = (nextTheme) => {
+        theme = nextTheme;
+        root.dataset.theme = theme;
+        button.setAttribute("aria-pressed", String(theme === "dark"));
+        button.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+        symbol.textContent = theme === "dark" ? "☀" : "☾";
+        label.textContent = theme === "dark" ? "Light" : "Dark";
+        themeColor.setAttribute("content", theme === "dark" ? "#101c17" : "#f6f5f0");
+      };
+
+      applyTheme(theme);
+      button.addEventListener("click", () => {
+        const nextTheme = theme === "dark" ? "light" : "dark";
+        localStorage.setItem("blog-theme", nextTheme);
+        applyTheme(nextTheme);
+      });
+    })();
+  </script>
 </body>
 </html>
